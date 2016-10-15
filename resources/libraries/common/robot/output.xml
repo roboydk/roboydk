@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20161015 03:09:05.707" generator="Robot 3.0 (Python 2.7.6 on linux2)">
+<suite source="/home/cisco/roboydk/resources/libraries/common/robot/default.robot" id="s1" name="Default">
+<test id="s1-t1" name="Setup all DUTs before test">
+<kw name="Setup All Duts" library="resources.libraries.common.python.DUTSetup">
+<doc>Prepare all DUTs in given topology for test execution.</doc>
+<arguments>
+<arg>${nodes}</arg>
+</arguments>
+<status status="PASS" endtime="20161015 03:09:41.601" starttime="20161015 03:09:05.910"></status>
+</kw>
+<doc>Setup all DUTs in topology before test execution</doc>
+<status status="PASS" endtime="20161015 03:09:41.601" critical="yes" starttime="20161015 03:09:05.910"></status>
+</test>
+<status status="PASS" endtime="20161015 03:09:41.602" starttime="20161015 03:09:05.708"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Default" pass="1">Default</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

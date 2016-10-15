@@ -1,0 +1,106 @@
+name: 3 nodes topology with 2 Tgens
+
+orchestration: vagrant
+
+
+nodes:
+  node1:
+    name: devbox_s
+    type: tgen
+    os: linux_ubuntu
+    box: ubuntu/trusty64
+    mgmt_ip: localhost
+    username: vagrant
+    password: vagrant
+    port_forwarding:
+      ssh:
+        guest: 22
+        host: 2522
+    interfaces:
+      port1:
+        link-name: link1
+
+
+  node2:
+    name: devbox_r
+    type: tgen 
+    os: linux_ubuntu
+    box: ubuntu/trusty64
+    mgmt_ip: localhost
+    username: vagrant
+    password: vagrant
+    port_forwarding:
+      ssh:
+        guest: 22
+        host: 2523
+    interfaces:
+      port1:
+        link-name: link2
+
+  node3:
+    name: rtr1
+    type: rtr
+    os: cisco_iosxr
+    box: IOS-XRv
+    mgmt_ip: localhost
+    username: vagrant
+    password: vagrant
+    port_forwarding:
+      ssh_xr: 
+        guest: 22
+        host: 2601
+      ssh_xr_shell: 
+        guest: 57722
+        host: 2602
+    wires:
+      port1:
+        link-name: link1
+      port2:
+        link-name: link3
+      port3:
+        link-name: link5
+
+  node4:
+    name: rtr2
+    type: rtr
+    os: cisco_iosxr
+    box: IOS-XRv
+    mgmt_ip: localhost
+    username: vagrant
+    password: vagrant
+    port_forwarding:
+      ssh_xr: 
+        guest: 22
+        host: 2603
+      ssh_xr_shell: 
+        guest: 57722
+        host: 2604
+    wires:
+      port1:
+        link-name: link3
+      port2:
+        link-name: link2
+      port3:
+        link-name: link4
+
+  node5:
+    name: rtr3
+    type: rtr
+    os: cisco_iosxr
+    box: IOS-XRv
+    mgmt_ip: localhost
+    username: vagrant
+    password: vagrant
+    port_forwarding:
+      ssh_xr: 
+        guest: 22
+        host: 2605
+      ssh_xr_shell: 
+        guest: 57722
+        host: 2606
+    wires:
+      port1:
+        link-name: link4
+      port2:
+        link-name: link5
+
