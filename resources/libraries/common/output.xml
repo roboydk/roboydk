@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20161016 01:13:12.904" generator="Robot 3.0 (Python 2.7.6 on linux2)">
+<suite source="/home/cisco/roboydk/resources/libraries/common/robot/default.robot" id="s1" name="Default">
+<test id="s1-t1" name="Setup all DUTs before test">
+<kw name="Setup All Duts" library="resources.libraries.common.python.DUTSetup">
+<doc>Prepare all DUTs in given topology for test execution.</doc>
+<arguments>
+<arg>${nodes}</arg>
+</arguments>
+<msg timestamp="20161016 01:13:27.766" level="WARN">devbox_s</msg>
+<msg timestamp="20161016 01:13:27.766" level="WARN">The program 'show' is currently not installed. To run 'show' please ask your administrator to install the package 'nmh'</msg>
+<msg timestamp="20161016 01:13:27.766" level="WARN">rtr1</msg>
+<msg timestamp="20161016 01:13:27.766" level="WARN">Sun Oct 16 08:13:16.036 UTC
+
+Cisco IOS XR Software, Version 6.2.1.17I
+Copyright (c) 2013-2016 by Cisco Systems, Inc.
+
+Build Information:
+ Built By     : jwu
+ Built On     : Thu Oct 13 18:38:29 PDT 2016
+ Build Host   : iox-ucs-001
+ Workspace    : /auto/iox-ucs-001-san1/nightly/xr-dev_16.10.13C/iosxrv-x64
+ Version      : 6.2.1.17I
+ Location     : /opt/cisco/XR/packages/
+
+cisco IOS XRv x64 () processor 
+System uptime is 23 hours, 45 minutes</msg>
+<msg timestamp="20161016 01:13:27.766" level="WARN">devbox_r</msg>
+<msg timestamp="20161016 01:13:27.766" level="WARN">The program 'show' is currently not installed. To run 'show' please ask your administrator to install the package 'nmh'</msg>
+<msg timestamp="20161016 01:13:27.766" level="WARN">rtr3</msg>
+<msg timestamp="20161016 01:13:27.766" level="WARN">Sun Oct 16 08:13:21.713 UTC
+
+Cisco IOS XR Software, Version 6.2.1.17I
+Copyright (c) 2013-2016 by Cisco Systems, Inc.
+
+Build Information:
+ Built By     : jwu
+ Built On     : Thu Oct 13 18:38:29 PDT 2016
+ Build Host   : iox-ucs-001
+ Workspace    : /auto/iox-ucs-001-san1/nightly/xr-dev_16.10.13C/iosxrv-x64
+ Version      : 6.2.1.17I
+ Location     : /opt/cisco/XR/packages/
+
+cisco IOS XRv x64 () processor 
+System uptime is 23 hours, 20 minutes</msg>
+<msg timestamp="20161016 01:13:27.766" level="WARN">rtr2</msg>
+<msg timestamp="20161016 01:13:27.766" level="WARN">Sun Oct 16 08:13:25.325 UTC
+
+Cisco IOS XR Software, Version 6.2.1.17I
+Copyright (c) 2013-2016 by Cisco Systems, Inc.
+
+Build Information:
+ Built By     : jwu
+ Built On     : Thu Oct 13 18:38:29 PDT 2016
+ Build Host   : iox-ucs-001
+ Workspace    : /auto/iox-ucs-001-san1/nightly/xr-dev_16.10.13C/iosxrv-x64
+ Version      : 6.2.1.17I
+ Location     : /opt/cisco/XR/packages/
+
+cisco IOS XRv x64 () processor 
+System uptime is 23 hours, 27 minutes</msg>
+<status status="PASS" endtime="20161016 01:13:27.768" starttime="20161016 01:13:13.117"></status>
+</kw>
+<doc>Setup all DUTs in topology before test execution</doc>
+<status status="PASS" endtime="20161016 01:13:27.769" critical="yes" starttime="20161016 01:13:13.116"></status>
+</test>
+<status status="PASS" endtime="20161016 01:13:27.769" starttime="20161016 01:13:12.905"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Default" pass="1">Default</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20161016 01:13:27.766" level="WARN">devbox_s</msg>
+<msg timestamp="20161016 01:13:27.766" level="WARN">The program 'show' is currently not installed. To run 'show' please ask your administrator to install the package 'nmh'</msg>
+<msg timestamp="20161016 01:13:27.766" level="WARN">rtr1</msg>
+<msg timestamp="20161016 01:13:27.766" level="WARN">Sun Oct 16 08:13:16.036 UTC
+
+Cisco IOS XR Software, Version 6.2.1.17I
+Copyright (c) 2013-2016 by Cisco Systems, Inc.
+
+Build Information:
+ Built By     : jwu
+ Built On     : Thu Oct 13 18:38:29 PDT 2016
+ Build Host   : iox-ucs-001
+ Workspace    : /auto/iox-ucs-001-san1/nightly/xr-dev_16.10.13C/iosxrv-x64
+ Version      : 6.2.1.17I
+ Location     : /opt/cisco/XR/packages/
+
+cisco IOS XRv x64 () processor 
+System uptime is 23 hours, 45 minutes</msg>
+<msg timestamp="20161016 01:13:27.766" level="WARN">devbox_r</msg>
+<msg timestamp="20161016 01:13:27.766" level="WARN">The program 'show' is currently not installed. To run 'show' please ask your administrator to install the package 'nmh'</msg>
+<msg timestamp="20161016 01:13:27.766" level="WARN">rtr3</msg>
+<msg timestamp="20161016 01:13:27.766" level="WARN">Sun Oct 16 08:13:21.713 UTC
+
+Cisco IOS XR Software, Version 6.2.1.17I
+Copyright (c) 2013-2016 by Cisco Systems, Inc.
+
+Build Information:
+ Built By     : jwu
+ Built On     : Thu Oct 13 18:38:29 PDT 2016
+ Build Host   : iox-ucs-001
+ Workspace    : /auto/iox-ucs-001-san1/nightly/xr-dev_16.10.13C/iosxrv-x64
+ Version      : 6.2.1.17I
+ Location     : /opt/cisco/XR/packages/
+
+cisco IOS XRv x64 () processor 
+System uptime is 23 hours, 20 minutes</msg>
+<msg timestamp="20161016 01:13:27.766" level="WARN">rtr2</msg>
+<msg timestamp="20161016 01:13:27.766" level="WARN">Sun Oct 16 08:13:25.325 UTC
+
+Cisco IOS XR Software, Version 6.2.1.17I
+Copyright (c) 2013-2016 by Cisco Systems, Inc.
+
+Build Information:
+ Built By     : jwu
+ Built On     : Thu Oct 13 18:38:29 PDT 2016
+ Build Host   : iox-ucs-001
+ Workspace    : /auto/iox-ucs-001-san1/nightly/xr-dev_16.10.13C/iosxrv-x64
+ Version      : 6.2.1.17I
+ Location     : /opt/cisco/XR/packages/
+
+cisco IOS XRv x64 () processor 
+System uptime is 23 hours, 27 minutes</msg>
+</errors>
+</robot>

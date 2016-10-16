@@ -23,6 +23,7 @@ from paramiko.ssh_exception import SSHException
 from scp import SCPClient
 from robot.api import logger
 from robot.utils.asserts import assert_equal
+from resources.libraries.common.python.topology import Topology
 
 __all__ = ["exec_cmd", "exec_cmd_no_error"]
 
@@ -40,26 +41,35 @@ class SSH(object):
         self._node = None
 
     @staticmethod
-    def _node_hash(self, node):
+    def _node_hash(self, node, port):
         """Get IP address and port hash from node dictionary.
 
         :param node: Node in topology.
+        :param port: 
         :type node: dict
         :return: IP address and port for the specified node.
         :rtype: int
         """
 
-        ssh_port_name = self._ssh_port_name(node) 
-        return hash(frozenset([node['mgmt_ip'], node["port_forwarding"][ssh_port_name]["host"]]))
+        return hash(frozenset([node['mgmt_ip'], port]))
 
     @staticmethod
     def _ssh_port_name(node):
       if "linux" in node['os']:
-          port = "ssh"
+          port_type = "ssh"
       elif "xr" in node['os']:
-          port = "ssh_xr_shell"
-  
-      return port  
+          port_type = "ssh_xr_shell"
+      return port_type
+
+    @staticmethod
+    def _get_ssh_port(self, node):
+      ssh_port_name = self._ssh_port_name(node)
+      for port in node["ports"]:
+        if ssh_port_name == node["ports"][port]["type"]:
+          ssh_port = node["ports"][port]["value"]
+          break
+      return ssh_port
+ 
 
     def connect(self, node):
         """Connect to node prior to running exec_command or scp.
@@ -67,7 +77,8 @@ class SSH(object):
         If there already is a connection to the node, this method reuses it.
         """
         self._node = node
-        node_hash = self._node_hash(self, node)
+        ssh_port = Topology.get_ssh_port_from_node(node)
+        node_hash = self._node_hash(self, node, ssh_port)
         if node_hash in SSH.__existing_connections:
             self._ssh = SSH.__existing_connections[node_hash]
             logger.debug('reusing ssh: {0}'.format(self._ssh))
@@ -81,10 +92,10 @@ class SSH(object):
             self._ssh = paramiko.SSHClient()
             self._ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
-            ssh_port_name = self._ssh_port_name(node) 
+            
             self._ssh.connect(node['mgmt_ip'], username=node['username'],
                               password=node.get('password'), pkey=pkey,
-                              port=node["port_forwarding"][ssh_port_name]["host"])
+                              port=ssh_port)
 
             self._ssh.get_transport().set_keepalive(10)
 

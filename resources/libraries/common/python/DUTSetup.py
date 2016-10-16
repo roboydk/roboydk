@@ -17,14 +17,15 @@ from robot.api import logger
 
 from resources.libraries.common.python.topology import NodeType
 from resources.libraries.common.python.ssh import SSH
-
+from resources.libraries.common.python.netmiko_ssh import NetmikoSSH 
 
 class DUTSetup(object):
     @staticmethod
     def setup_all_duts(nodes):
         """Prepare all DUTs in given topology for test execution."""
         for node in nodes.values():
-            DUTSetup.setup_dut(node)
+              print "*WARN*"+str(node['name'])
+              DUTSetup.setup_dut(node)
 
     @staticmethod
     def setup_dut(node):
@@ -35,15 +36,12 @@ class DUTSetup(object):
 
         :raises Exception: If the DUT setup fails.
         """
-        ssh = SSH()
-        ssh.connect(node)
+        net_session = NetmikoSSH() 
+        net_session.net_connect(node)
 
-        (ret_code, stdout, stderr) = \
-            ssh.exec_command('ls') 
-        logger.trace(stdout)
-        logger.trace(stderr)
-        if int(ret_code) != 0:
-            logger.debug('DUT {0} setup script failed: "{1}"'.
-                         format(node['host'], stdout + stderr))
-            raise Exception('DUT test setup script failed at node {}'.
-                            format(node['host']))
+        output = net_session.send_command("show version") 
+
+        print "*WARN*"+str(output)
+#DICT__nodes={'node1': {'box': 'ubuntu/trusty64', 'username': 'vagrant', 'name': 'devbox_s', 'mgmt_ip': 'localhost', 'os': 'linux_ubuntu', 'interfaces': {'interface1': {'interface': 'eth1', 'link-name': 'link1'}}, 'password': 'vagrant', 'type': 'tgen', 'ports': {'port1': {'type': 'ssh', 'value': 2522}}}, 'node3': {'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr1', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link1'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link5'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link3'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2602}, 'port3': {'type': 'netconf', 'value': 8301}, 'port1': {'type': 'ssh_xr', 'value': 2601}}}, 'node2': {'box': 'ubuntu/trusty64', 'username': 'vagrant', 'name': 'devbox_r', 'mgmt_ip': 'localhost', 'os': 'linux_ubuntu', 'interfaces': {'interface1': {'interface': 'eth1', 'link-name': 'link2'}}, 'password': 'vagrant', 'type': 'tgen', 'ports': {'port1': {'type': 'ssh', 'value': 2523}}}, 'node5': {'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr3', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link5'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2606}, 'port3': {'type': 'netconf', 'value': 8303}, 'port1': {'type': 'ssh_xr', 'value': 2605}}}, 'node4': {'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr2', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link3'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link2'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2604}, 'port3': {'type': 'netconf', 'value': 8302}, 'port1': {'type': 'ssh_xr', 'value': 2603}}}}
+
+#DUTSetup().setup_all_duts(DICT__nodes)

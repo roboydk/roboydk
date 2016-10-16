@@ -16,6 +16,7 @@
 | Library | resources.libraries.common.python.topology.Topology
 | Library | resources.libraries.common.python.DUTSetup
 | Library | Collections
+Library         DebugLibrary
 
 *** Test Cases ***
 | Setup all DUTs before test
