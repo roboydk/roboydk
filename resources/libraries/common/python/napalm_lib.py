@@ -19,20 +19,21 @@ from napalm import get_network_driver
 from robot.api import logger
 from robot.utils.asserts import assert_equal
 from resources.libraries.common.python.topology import Topology
-from resources.libraries.common.python.os_dict import os_napalm_map
+from resources.libraries.common.python.os_dict import os_napalm_map, os_napalm_port_map
 
 __all__ = ["exec_cmd", "exec_cmd_no_error"]
 
-class NetmikoSSH(object):
+class NapalmDriver(object):
     """Contains methods for managing and using SSH connections for Network Devices using Netmiko"""
 
     __MAX_RECV_BUF = 10*1024*1024
     __existing_connections = {}
 
     def __init__(self):
-        self._session = None
+        self._device = None
         self._node = None
-        self._device = {} 
+        self._napalm_port = None
+        self._session = False 
 
     @staticmethod
     def _node_hash(self, node, port):
@@ -49,115 +50,223 @@ class NetmikoSSH(object):
 
 
     @staticmethod
-    def _get_device_type(node):
+    def _get_driver_type(node):
          device_os = node['os'] 
-         return os_netmiko_map[str(device_os)] 
+         return os_napalm_map[str(device_os)] 
 
-    def net_connect(self, node):
-        """Connect to node using Netmiko's inbuilt libraries.
+
+    def device_setup(self, node):
+        """ Set up Napalm Device Driver based on the Device OS
 
         """
         self._node = node
-        ssh_port = Topology.get_ssh_port_from_node(node)
+        print "NODE is !!!!\n\n"
+        print node
+        self._napalm_port = Topology.get_napalm_port_from_node(node)
 
-        node_hash = self._node_hash(self, node, ssh_port)
-        if node_hash in NetmikoSSH.__existing_connections:
-            self._session = NetmikoSSH.__existing_connections[node_hash]
+        node_hash = self._node_hash(self, node, self._napalm_port)
+        if node_hash in NapalmDriver.__existing_connections:
+            self._device = NapalmDriver.__existing_connections[node_hash]
             logger.debug('reusing ssh: {0}'.format(self._session))
         else:
             start = time()
-            self._device = {'device_type': NetmikoSSH._get_device_type(node),
-                            'ip': node['mgmt_ip'],
-                            'username': node['username'],
-                            'password': node['password'],
-                            'port': ssh_port }
+
+            driver = get_network_driver(NapalmDriver._get_driver_type(node))
+
+            self._device = driver( hostname = node['mgmt_ip'],
+                                   username = node['username'],
+                                   password = node['password'], 
+                                   optional_args={'port': self._napalm_port})
 
 
-            self._session = ConnectHandler(**self._device)
-            NetmikoSSH.__existing_connections[node_hash] = self._session
+            NapalmDriver.__existing_connections[node_hash] = self._device
 
             logger.trace('connect took {} seconds'.format(time() - start))
-            logger.debug('new connection: {0}'.format(self._session))
+            logger.debug('new device: {0}'.format(self._device))
 
 
-        logger.debug('Connections: {0}'.format(str(NetmikoSSH.__existing_connections)))
+        logger.debug('Connections: {0}'.format(str(NapalmDriver.__existing_connections)))
 
-    def net_disconnect(self, node):
+    def open_napalm_session(self, node):
+        """Close SSH connection to the node.
+
+        :param node: The node to disconnect from.
+        :type node: dict
+        """
+        self.device_setup(node)
+        if not self._session:
+            self._device.open()
+        self._session = True 
+
+    def close_napalm_session(self, node):
         """Close SSH connection to the node.
 
         :param node: The node to disconnect from.
         :type node: dict
         """
         node_hash = self._node_hash(node)
-        if node_hash in NetmikoSSH.__existing_connections:
-            logger.debug('Disconnecting peer: {}, {}'.
-                         format(node['host'], node['port']))
-            ssh = NetmikoSSH.__existing_connections.pop(node_hash)
+        if node_hash in NapalmDriver.__existing_connections:
+            logger.debug('Removing peer: {}, {}'.
+                         format(node['name'], self._napalm_port))
+            ssh = NapalmDriver.__existing_connections.pop(node_hash)
 
-        self._session.disconnect()    
+        if self._session:
+            self._device.close()    
+        self._session = False
 
     def _reconnect(self):
         """Close the SSH connection and open it again."""
 
         node = self._node
-        self.net_disconnect(node)
-        self.net_connect(node)
+        self.close_napalm_session(node)
+        self.open_napalm_session(node)
 
-    def config_mode(self):
-        """Enter into config mode """
-        self.net_connect(self._node)
-        self._session.config_mode()
+    def load_replace_candidate(self, filename=None, config=None):
+        node = self._node
+        self.open_napalm_session(node)     
+        self._device.load_replace_candidate(filename, config)
 
-    def check_config_mode(self):
-        """ Check if session is currently in config mode"""
-        self.net_connect(self._node)
-        return self._session.check_config_mode()
 
-    def exit_config_mode(self):
-        """Exit config mode"""
-        self.net_connect(self._node)
-        self._session.exit_config_mode()
+    def load_merge_candidate(self, filename=None, config=None):
+        node = self._node
+        self.open_napalm_session(node)     
+        self._device.load_merge_candidate(filename, config)
 
-    def clear_buffer(self):
-        """ Clear logging buffer """
-        self.net_connect(self._node)
-        self._session.clear_buffer()
+    def compare_config(self):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.compare_config()
 
-    def enable(self):
-        """ Enter Enable Mode"""
-        self.net_connect(self._node)
-        self._session.enable()
+    def commit_config(self):
+        node = self._node
+        self.open_napalm_session(node)
+        self._device.commit_config()
 
-    def exit_enable_mode(self):
-        """ Exit enable mode """
-        self.net_connect(self._node)
-        self._session.exit_enable_mode()
+    def discard_config(self):
+        node = self._node
+        self.open_napalm_session(node)
+        self._device.discard_config()
 
-    def find_prompt(self):
-        """Return the current router prompt"""
-        self.net_connect(self._node)
-        self._session.find_prompt()
 
-    def send_command(self, cmd):
-        """Send command down the SSH channel and return output back"""
-        if cmd is None:
-          raise TypeError('Command parameter is None')
-        if len(cmd) == 0:
-          raise ValueError('Empty command parameter')
+    def rollback(self):
+        node = self._node
+        self.open_napalm_session(node)
+        self._device.rollback()
 
-        self.net_connect(self._node)
-        return self._session.send_command(cmd)
+    def get_facts(self):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_facts()
 
-    def send_config_set(self, config_cmds):
-        """Send a set of configuration commands to remote device"""
-        if config_cmds is None:
-          raise TypeError('Config Cmds parameter is None')
-        self.net_connect(self._node)
-        self._session.send_config_set(config_cmds)
+    def get_interfaces(self):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_interfaces()
 
-    def send_config_from_file(self, cfg_file):
-        """Send a set of configuration commands loaded from a file """
-        if not os.path.isfile(cfg_file):
-          raise TypeError('Config file does not exist')
-        self.net_connect(self._node)
-        self._session.send_config_from_file(cfg_file)
+
+    def get_lldp_neighbors(self):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_lldp_neighbors()
+
+    def get_interfaces_counters(self):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_interfaces_counters()
+
+    def get_environment(self):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_environment()
+        
+    def get_bgp_neighbors(self):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_bgp_neighbors()
+
+
+    def get_lldp_neighbors_detail(self, interface=''):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_lldp_neighbors_detail(interface)
+
+
+    def cli(self, commands=None):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.cli(commands)
+
+
+    def get_bgp_config(self, group='', neighbor=''):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_bgp_config(group, neighbor)
+
+
+    def get_arp_table(self):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_arp_table()
+
+
+    def get_ntp_servers(self):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_ntp_servers()
+
+    def get_ntp_stats(self):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_ntp_stats()
+
+
+    def get_interfaces_ip(self):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_interfaces_ip()
+
+    def get_mac_address_table(self):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_mac_address_table()
+
+
+    def get_route_to(self, destination='', protocol=''):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_route_to(destination, protocol)
+
+    def get_snmp_information(self):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_snmp_information()
+
+    def get_users(self):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_users()
+
+    def traceroute(self, destination, source='', ttl=0, timeout=0):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.traceroute(destination, source, ttl, timeout)
+
+    def get_bgp_neighbors_detail(self, neighbor_address=''):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_bgp_neighbors_detail(neighbor_address)
+
+    def get_optics(self):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_optics()
+        
+    def get_config(self, retrieve="all"):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.get_config(retrieve)
+
+    def ping(self, destination, source='', ttl=255, timeout=2, size=100, count=5):
+        node = self._node
+        self.open_napalm_session(node)
+        return self._device.ping(destination, source, ttl, timeout, size, count)

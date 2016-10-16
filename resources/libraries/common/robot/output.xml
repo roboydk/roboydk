@@ -1,47 +1,214 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20161015 15:33:46.208" generator="Robot 3.0 (Python 2.7.6 on linux2)">
+<robot generated="20161016 11:53:50.009" generator="Robot 3.0 (Python 2.7.6 on linux2)">
 <suite source="/home/cisco/roboydk/resources/libraries/common/robot/default.robot" id="s1" name="Default">
 <test id="s1-t1" name="Setup all DUTs before test">
-<kw name="Setup All DUTs">
+<kw name="Setup All Duts" library="resources.libraries.common.python.DUTSetup">
+<doc>Prepare all DUTs in given topology for test execution.</doc>
 <arguments>
 <arg>${nodes}</arg>
 </arguments>
-<msg timestamp="20161015 15:33:46.412" level="FAIL">No keyword with name 'Setup All DUTs' found.</msg>
-<status status="FAIL" endtime="20161015 15:33:46.412" starttime="20161015 15:33:46.412"></status>
+<msg timestamp="20161016 11:54:40.257" level="WARN">devbox_s</msg>
+<msg timestamp="20161016 11:54:40.258" level="WARN">rtr1
+['xml agent ssl', 'xml agent tty', 'commit']
+Netmiko NODE !!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr1', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link1'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link5'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link3'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2602}, 'port3': {'type': 'netconf', 'value': 8301}, 'port1': {'type': 'ssh_xr', 'value': 2601}}}
+xml agent ssl
+
+RP/0/RP0/CPU0:NAPALM(config-xml-ssl)#xml agent tty
+
+RP/0/RP0/CPU0:NAPALM(config-xml-tty)#commit
+
+Sun Oct 16 18:53:53.669 UTC
+RP/0/RP0/CPU0:NAPALM(config-xml-tty)#
+NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr1', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link1'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link5'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link3'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2602}, 'port3': {'type': 'netconf', 'value': 8301}, 'port1': {'type': 'ssh_xr', 'value': 2601}}}
+NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr1', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link1'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link5'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link3'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2602}, 'port3': {'type': 'netconf', 'value': 8301}, 'port1': {'type': 'ssh_xr', 'value': 2601}}}
+NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr1', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link1'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link5'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link3'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2602}, 'port3': {'type': 'netconf', 'value': 8301}, 'port1': {'type': 'ssh_xr', 'value': 2601}}}</msg>
+<msg timestamp="20161016 11:54:40.258" level="WARN">NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr1', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link1'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link5'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link3'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2602}, 'port3': {'type': 'netconf', 'value': 8301}, 'port1': {'type': 'ssh_xr', 'value': 2601}}}</msg>
+<msg timestamp="20161016 11:54:40.258" level="WARN">devbox_r</msg>
+<msg timestamp="20161016 11:54:40.258" level="WARN">rtr3
+['xml agent ssl', 'xml agent tty', 'commit']
+Netmiko NODE !!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr3', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link5'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2606}, 'port3': {'type': 'netconf', 'value': 8303}, 'port1': {'type': 'ssh_xr', 'value': 2605}}}
+xml agent ssl
+
+RP/0/RP0/CPU0:NAPALM(config-xml-ssl)#xml agent tty
+
+RP/0/RP0/CPU0:NAPALM(config-xml-tty)#commit
+
+Sun Oct 16 18:54:11.822 UTC
+RP/0/RP0/CPU0:NAPALM(config-xml-tty)#
+NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr3', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link5'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2606}, 'port3': {'type': 'netconf', 'value': 8303}, 'port1': {'type': 'ssh_xr', 'value': 2605}}}
+NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr3', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link5'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2606}, 'port3': {'type': 'netconf', 'value': 8303}, 'port1': {'type': 'ssh_xr', 'value': 2605}}}
+NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr3', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link5'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2606}, 'port3': {'type': 'netconf', 'value': 8303}, 'port1': {'type': 'ssh_xr', 'value': 2605}}}</msg>
+<msg timestamp="20161016 11:54:40.258" level="WARN">NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr3', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link5'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2606}, 'port3': {'type': 'netconf', 'value': 8303}, 'port1': {'type': 'ssh_xr', 'value': 2605}}}</msg>
+<msg timestamp="20161016 11:54:40.258" level="WARN">rtr2
+['xml agent ssl', 'xml agent tty', 'commit']
+Netmiko NODE !!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr2', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link3'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link2'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2604}, 'port3': {'type': 'netconf', 'value': 8302}, 'port1': {'type': 'ssh_xr', 'value': 2603}}}
+xml agent ssl
+
+RP/0/RP0/CPU0:NAPALM(config-xml-ssl)#xml agent tty
+
+RP/0/RP0/CPU0:NAPALM(config-xml-tty)#commit
+
+Sun Oct 16 18:54:27.786 UTC
+RP/0/RP0/CPU0:NAPALM(config-xml-tty)#
+NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr2', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link3'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link2'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2604}, 'port3': {'type': 'netconf', 'value': 8302}, 'port1': {'type': 'ssh_xr', 'value': 2603}}}
+NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr2', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link3'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link2'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2604}, 'port3': {'type': 'netconf', 'value': 8302}, 'port1': {'type': 'ssh_xr', 'value': 2603}}}
+NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr2', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link3'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link2'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2604}, 'port3': {'type': 'netconf', 'value': 8302}, 'port1': {'type': 'ssh_xr', 'value': 2603}}}</msg>
+<msg timestamp="20161016 11:54:40.258" level="WARN">NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr2', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link3'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link2'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2604}, 'port3': {'type': 'netconf', 'value': 8302}, 'port1': {'type': 'ssh_xr', 'value': 2603}}}</msg>
+<status status="PASS" endtime="20161016 11:54:40.260" starttime="20161016 11:53:50.257"></status>
 </kw>
 <doc>Setup all DUTs in topology before test execution</doc>
-<status status="FAIL" endtime="20161015 15:33:46.412" critical="yes" starttime="20161015 15:33:46.408">No keyword with name 'Setup All DUTs' found.</status>
+<status status="PASS" endtime="20161016 11:54:40.260" critical="yes" starttime="20161016 11:53:50.256"></status>
 </test>
-<status status="FAIL" endtime="20161015 15:33:46.413" starttime="20161015 15:33:46.209"></status>
+<status status="PASS" endtime="20161016 11:54:40.261" starttime="20161016 11:53:50.010"></status>
 </suite>
 <statistics>
 <total>
-<stat fail="1" pass="0">Critical Tests</stat>
-<stat fail="1" pass="0">All Tests</stat>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat fail="1" id="s1" name="Default" pass="0">Default</stat>
+<stat fail="0" id="s1" name="Default" pass="1">Default</stat>
 </suite>
 </statistics>
 <errors>
-<msg timestamp="20161015 15:33:46.400" level="ERROR">Error in file '/home/cisco/roboydk/resources/libraries/common/robot/default.robot': Importing test library 'resources.libraries.common.python.DUTSetup' failed: ImportError: No module named python.topology
-Traceback (most recent call last):
-  File "/home/cisco/roboydk/resources/libraries/common/python/DUTSetup.py", line 19, in &lt;module&gt;
-    from resources.libraries.common.python.ssh import SSH
-  File "/home/cisco/roboydk/resources/libraries/common/python/ssh.py", line 26, in &lt;module&gt;
-    from resources.libraries.python.topology import Topology
-PYTHONPATH:
-  /usr/local/bin
-  /home/cisco/roboydk
-  /usr/lib/python2.7
-  /usr/lib/python2.7/plat-x86_64-linux-gnu
-  /usr/lib/python2.7/lib-tk
-  /usr/lib/python2.7/lib-old
-  /usr/lib/python2.7/lib-dynload
-  /usr/local/lib/python2.7/dist-packages
-  /usr/local/lib/python2.7/dist-packages/setuptools-26.1.1-py2.7.egg
-  /usr/lib/python2.7/dist-packages</msg>
+<msg timestamp="20161016 11:54:40.257" level="WARN">devbox_s</msg>
+<msg timestamp="20161016 11:54:40.258" level="WARN">rtr1
+['xml agent ssl', 'xml agent tty', 'commit']
+Netmiko NODE !!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr1', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link1'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link5'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link3'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2602}, 'port3': {'type': 'netconf', 'value': 8301}, 'port1': {'type': 'ssh_xr', 'value': 2601}}}
+xml agent ssl
+
+RP/0/RP0/CPU0:NAPALM(config-xml-ssl)#xml agent tty
+
+RP/0/RP0/CPU0:NAPALM(config-xml-tty)#commit
+
+Sun Oct 16 18:53:53.669 UTC
+RP/0/RP0/CPU0:NAPALM(config-xml-tty)#
+NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr1', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link1'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link5'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link3'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2602}, 'port3': {'type': 'netconf', 'value': 8301}, 'port1': {'type': 'ssh_xr', 'value': 2601}}}
+NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr1', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link1'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link5'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link3'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2602}, 'port3': {'type': 'netconf', 'value': 8301}, 'port1': {'type': 'ssh_xr', 'value': 2601}}}
+NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr1', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link1'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link5'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link3'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2602}, 'port3': {'type': 'netconf', 'value': 8301}, 'port1': {'type': 'ssh_xr', 'value': 2601}}}</msg>
+<msg timestamp="20161016 11:54:40.258" level="WARN">NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr1', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link1'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link5'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link3'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2602}, 'port3': {'type': 'netconf', 'value': 8301}, 'port1': {'type': 'ssh_xr', 'value': 2601}}}</msg>
+<msg timestamp="20161016 11:54:40.258" level="WARN">devbox_r</msg>
+<msg timestamp="20161016 11:54:40.258" level="WARN">rtr3
+['xml agent ssl', 'xml agent tty', 'commit']
+Netmiko NODE !!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr3', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link5'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2606}, 'port3': {'type': 'netconf', 'value': 8303}, 'port1': {'type': 'ssh_xr', 'value': 2605}}}
+xml agent ssl
+
+RP/0/RP0/CPU0:NAPALM(config-xml-ssl)#xml agent tty
+
+RP/0/RP0/CPU0:NAPALM(config-xml-tty)#commit
+
+Sun Oct 16 18:54:11.822 UTC
+RP/0/RP0/CPU0:NAPALM(config-xml-tty)#
+NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr3', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link5'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2606}, 'port3': {'type': 'netconf', 'value': 8303}, 'port1': {'type': 'ssh_xr', 'value': 2605}}}
+NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr3', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link5'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2606}, 'port3': {'type': 'netconf', 'value': 8303}, 'port1': {'type': 'ssh_xr', 'value': 2605}}}
+NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr3', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link5'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2606}, 'port3': {'type': 'netconf', 'value': 8303}, 'port1': {'type': 'ssh_xr', 'value': 2605}}}</msg>
+<msg timestamp="20161016 11:54:40.258" level="WARN">NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr3', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link5'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2606}, 'port3': {'type': 'netconf', 'value': 8303}, 'port1': {'type': 'ssh_xr', 'value': 2605}}}</msg>
+<msg timestamp="20161016 11:54:40.258" level="WARN">rtr2
+['xml agent ssl', 'xml agent tty', 'commit']
+Netmiko NODE !!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr2', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link3'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link2'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2604}, 'port3': {'type': 'netconf', 'value': 8302}, 'port1': {'type': 'ssh_xr', 'value': 2603}}}
+xml agent ssl
+
+RP/0/RP0/CPU0:NAPALM(config-xml-ssl)#xml agent tty
+
+RP/0/RP0/CPU0:NAPALM(config-xml-tty)#commit
+
+Sun Oct 16 18:54:27.786 UTC
+RP/0/RP0/CPU0:NAPALM(config-xml-tty)#
+NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr2', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link3'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link2'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2604}, 'port3': {'type': 'netconf', 'value': 8302}, 'port1': {'type': 'ssh_xr', 'value': 2603}}}
+NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr2', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link3'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link2'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2604}, 'port3': {'type': 'netconf', 'value': 8302}, 'port1': {'type': 'ssh_xr', 'value': 2603}}}
+NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr2', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link3'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link2'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2604}, 'port3': {'type': 'netconf', 'value': 8302}, 'port1': {'type': 'ssh_xr', 'value': 2603}}}</msg>
+<msg timestamp="20161016 11:54:40.258" level="WARN">NODE is !!!!
+
+
+{'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr2', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link3'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link2'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2604}, 'port3': {'type': 'netconf', 'value': 8302}, 'port1': {'type': 'ssh_xr', 'value': 2603}}}</msg>
 </errors>
 </robot>

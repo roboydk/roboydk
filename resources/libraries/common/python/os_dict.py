@@ -27,3 +27,11 @@ os_napalm_map =  {'cisco_ios': 'ios',
                   'junos': 'junos',
                   'linux_ubuntu': 'linux',
                   'linux_centos': 'linux'}
+
+os_napalm_port_map = {'cisco_ios': 'ssh',
+                      'cisco_nxos': 'nxapi_port',
+                      'cisco_iosxr': 'ssh_xr',
+                      'arista_eos': 'eapi_port',
+                      'junos': 'ssh',
+                      'linux_ubuntu': 'ssh',
+                      'linux_centos': 'ssh'}

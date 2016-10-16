@@ -20,8 +20,7 @@ from robot.api import logger
 from robot.utils.asserts import assert_equal
 from resources.libraries.common.python.topology import Topology
 from resources.libraries.common.python.os_netmiko_dict import os_netmiko_map
-
-__all__ = ["exec_cmd", "exec_cmd_no_error"]
+import pdb
 
 class NetmikoSSH(object):
     """Contains methods for managing and using SSH connections for Network Devices using Netmiko"""
@@ -155,7 +154,9 @@ class NetmikoSSH(object):
         if config_cmds is None:
           raise TypeError('Config Cmds parameter is None')
         self.net_connect(self._node)
-        self._session.send_config_set(config_cmds)
+        print "Netmiko NODE !!!\n\n"
+        print self._node
+        return self._session.send_config_set(config_cmds)
 
     def send_config_from_file(self, cfg_file):
         """Send a set of configuration commands loaded from a file """
