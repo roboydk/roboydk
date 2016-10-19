@@ -49,8 +49,8 @@ def _load_topo_from_yaml():
 
     :return: Nodes from loaded topology.
     """
-    topo_path = BuiltIn().get_variable_value("${TOPOLOGY_PATH}")
-    # topo_path = "/Users/mkorshun/IdeaProjects/roboydk_git/resources/topologies/3_node_topology_plus_2_tgens.yml"
+    #topo_path = BuiltIn().get_variable_value("${TOPOLOGY_PATH}")
+    topo_path = "/root/roboydk/resources/topologies/3_node_topology_plus_2_tgens.yml"
     with open(topo_path) as work_file:
         nodes_list = load(work_file.read())['nodes']
 
@@ -195,6 +195,37 @@ class Topology(object):
         node_ut = cls.get_node_by_name(nodes, name)
 
         return cls.get_ssh_port_from_node(node_ut)
+
+
+
+    @classmethod
+    def get_netconf_port_from_node(cls, node):
+        """Get ssh port from node. 
+
+        :param node: Node object.
+        :return: ssh_port or None if not found.
+        """
+
+        for port in node["ports"].values():
+            if "netconf" == port["type"]:
+                netconf_port = port["value"]
+                return netconf_port
+
+        return None
+
+    @classmethod
+    def get_netconf_port_from_node_name(cls, nodes, name):
+        """Get ssh port from from nodes of the topology by name. 
+
+        :param nodes: Nodes of the test topology.
+        :param hostname: User defined name in topo.yml
+        :type nodes: dict
+        :type hostname: str
+        :return: Node dictionary or None if not found.
+        """
+        node_ut = cls.get_node_by_name(nodes, name)
+
+        return cls.get_netconf_port_from_node(node_ut)
 
     @classmethod
     def get_napalm_port_from_node(cls, node):
