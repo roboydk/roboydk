@@ -12,12 +12,9 @@
 # limitations under the License.
 
 *** Settings ***
-| Variables | resources/libraries/common/python/topology.py
-| Library | resources.libraries.common.python.topology.Topology
-| Library | resources.libraries.common.python.DUTSetup
-| Library | Collections
+| Library | resources.libraries.common.python.ydk.models.openconfig.openconfig_bgp.BGP
 
 *** Keywords ***
-| Setup all DUTs before test
-| | [Documentation] | Setup all DUTs in topology before test execution
-| | Setup All DUTs | ${nodes}
+| Configure IPv4 IBGP  
+| | [Documentation] | Configure IPv4 IBGP neighbor on a router 
+| | Configure IPv4 IBGP |

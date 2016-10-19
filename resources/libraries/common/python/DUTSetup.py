@@ -18,6 +18,8 @@ from resources.libraries.common.python.topology import NodeType
 from resources.libraries.common.python.ssh import SSH
 from resources.libraries.common.python.netmiko_ssh import NetmikoSSH 
 from resources.libraries.common.python.napalm_lib import NapalmDriver
+from os.path import expanduser
+home = expanduser("~")
 
 class DUTSetup(object):
     @staticmethod
@@ -81,7 +83,7 @@ class DUTSetup(object):
             print output
             napalm = NapalmDriver()
             napalm.open_napalm_session(node)
-            napalm.load_merge_candidate("/home/cisco/configs/rtr1_config")
+            napalm.load_merge_candidate(home+"/configs/"+node["name"]+"_config")
             output = napalm.compare_config()
             print "*WARN*"+str(output)
 

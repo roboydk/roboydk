@@ -9,7 +9,7 @@ nodes:
     type: tgen
     os: linux_ubuntu
     box: ubuntu/trusty64
-    mgmt_ip: localhost
+    mgmt_ip: 10.30.110.213 
     username: vagrant
     password: vagrant
     ports:
@@ -24,7 +24,7 @@ nodes:
     type: tgen 
     os: linux_ubuntu
     box: ubuntu/trusty64
-    mgmt_ip: localhost
+    mgmt_ip: 10.30.110.213 
     username: vagrant
     password: vagrant
     ports:
@@ -37,8 +37,8 @@ nodes:
   - name: rtr1
     type: rtr
     os: cisco_iosxr
-    box: IOS-XRv
-    mgmt_ip: localhost
+    box: IOS-XRv-ydk
+    mgmt_ip: 10.30.110.213 
     username: vagrant
     password: vagrant
     ports:
@@ -59,8 +59,8 @@ nodes:
   - name: rtr2
     type: rtr
     os: cisco_iosxr
-    box: IOS-XRv
-    mgmt_ip: localhost
+    box: IOS-XRv-ydk
+    mgmt_ip: 10.30.110.213 
     username: vagrant
     password: vagrant
     ports:
@@ -81,8 +81,8 @@ nodes:
   - name: rtr3
     type: rtr
     os: cisco_iosxr
-    box: IOS-XRv
-    mgmt_ip: localhost
+    box: IOS-XRv-ydk
+    mgmt_ip: 10.30.110.213 
     username: vagrant
     password: vagrant
     ports:

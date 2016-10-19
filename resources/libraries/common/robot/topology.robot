@@ -15,16 +15,16 @@
 | Variables | resources/libraries/common/python/topology.py
 | Library | resources.libraries.common.python.topology.Topology
 
-*** Test Cases ***
+*** Keywords ***
 | Get node by name
-| | Get node by name | ${nodes} ${name}
+| | Get node by name | ${nodes} | ${name} 
 | Get Connecting Links
-| | Get Connecting Links | ${None} ${None}
+| | Get Connecting Links | ${None} | ${None}
 | Get Interfaces By Link Names
-| | Get Interfaces By Link Names | ${None} ${None}
+| | Get Interfaces By Link Names | ${None} |  ${None}
 | Get First Connecting Link
-| | Get First Connecting Link | ${None} ${None}
+| | Get First Connecting Link | ${None} | ${None}
 | Get Egress Interfaces Name For Nodes
-| | Get Egress Interfaces Name For Nodes | ${None} ${None}
+| | Get Egress Interfaces Name For Nodes | ${None} | ${None}
 | Get First Egress Interface For Nodes
-| | Get First Egress Interface For Nodes | ${None} ${None}
+| | Get First Egress Interface For Nodes | ${None} | ${None}

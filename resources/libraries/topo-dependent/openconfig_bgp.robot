@@ -17,7 +17,7 @@
 | Library | resources.libraries.common.python.DUTSetup
 | Library | Collections
 
-*** Keywords ***
+*** Test Cases ***
 | Setup all DUTs before test
 | | [Documentation] | Setup all DUTs in topology before test execution
 | | Setup All DUTs | ${nodes}

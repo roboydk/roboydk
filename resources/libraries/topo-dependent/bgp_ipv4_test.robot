@@ -12,12 +12,21 @@
 # limitations under the License.
 
 *** Settings ***
-| Variables | resources/libraries/common/python/topology.py
 | Library | resources.libraries.common.python.topology.Topology
-| Library | resources.libraries.common.python.DUTSetup
-| Library | Collections
+| Resource | resources/libraries/common/robot/default.robot
+#| Resource | resources/libraries/common/robot/topology.robot
+#| Resource | resources/libraries/common/robot/openconfig_bgp.robot
+| Library | resources.libraries.common.python.ydk.models.openconfig.openconfig_bgp.BGP
 
-*** Keywords ***
-| Setup all DUTs before test
-| | [Documentation] | Setup all DUTs in topology before test execution
-| | Setup All DUTs | ${nodes}
+#| Test Setup | Setup All DUTs | ${nodes}
+
+*** Variables ***
+${NODE1}  rtr1	
+${NODE2}  rtr2	
+
+*** Test Cases ***
+| TC01: Configure IPv4 BGP instance on rtr1 and rtr3
+| | ${node}= | Get node by name | ${nodes} |  ${NODE1} 
+| | Config Ipv4 Ibgp | ${node} | Loopback0 | 2.2.2.2 | 65001
+| | ${node}= | Get node by name | ${nodes} |  ${NODE2}  
+| | Config Ipv4 Ibgp | ${node} | Loopback0 | 1.1.1.1 | 65001

@@ -16,7 +16,7 @@
 | Variables | resources/libraries/common/python/topology.py
 | Library | resources.libraries.common.python.napalm_lib.NapalmDriver
 
-*** Test Cases ***
+*** Keywords  ***
 | Compare Config
 | | Compare Config
 | Get Environment

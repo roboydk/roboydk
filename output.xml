@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20161019 13:35:45.993" generator="Robot 3.0 (Python 2.7.12 on linux2)">
+<suite source="/root/roboydk/resources/libraries/topo-dependent/bgp_ipv4_test.robot" id="s1" name="Bgp Ipv4 Test">
+<test id="s1-t1" name="TC01: Configure IPv4 BGP instance on rtr1 and rtr3">
+<kw name="Get Node By Name" library="resources.libraries.common.python.topology.Topology">
+<doc>Get node from nodes of the topology by name.</doc>
+<arguments>
+<arg>${nodes}</arg>
+<arg>${NODE1}</arg>
+</arguments>
+<assign>
+<var>${node}</var>
+</assign>
+<msg timestamp="20161019 13:35:46.311" level="INFO">${node} = {'box': 'IOS-XRv-ydk', 'username': 'vagrant', 'name': 'rtr1', 'mgmt_ip': '10.30.110.213', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link1'...</msg>
+<status status="PASS" endtime="20161019 13:35:46.311" starttime="20161019 13:35:46.310"></status>
+</kw>
+<kw name="Config Ipv4 Ibgp" library="resources.libraries.common.python.ydk.models.openconfig.openconfig_bgp.BGP">
+<arguments>
+<arg>${node}</arg>
+<arg>Loopback0</arg>
+<arg>2.2.2.2</arg>
+<arg>65001</arg>
+</arguments>
+<msg timestamp="20161019 13:35:47.477" level="INFO">initialized: session-id=2337245290 | server_capabilities=&lt;dictionary-keyiterator object at 0x7fb5d9905db8&gt;</msg>
+<msg timestamp="20161019 13:35:47.478" level="INFO">NetconfServiceProvider connected to 10.30.110.213:8301 using ssh</msg>
+<msg timestamp="20161019 13:35:47.478" level="INFO">Requesting 'CloseSession'</msg>
+<msg timestamp="20161019 13:35:47.658" level="INFO">
+NetconfServiceProvider disconnected from 10.30.110.213:8301 using ssh</msg>
+<msg timestamp="20161019 13:35:47.659" level="FAIL">NameError: global name 'protocol' is not defined</msg>
+<status status="FAIL" endtime="20161019 13:35:47.659" starttime="20161019 13:35:46.311"></status>
+</kw>
+<status status="FAIL" endtime="20161019 13:35:47.659" critical="yes" starttime="20161019 13:35:46.309">NameError: global name 'protocol' is not defined</status>
+</test>
+<status status="FAIL" endtime="20161019 13:35:47.660" starttime="20161019 13:35:45.995"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="1" pass="0">Critical Tests</stat>
+<stat fail="1" pass="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="1" id="s1" name="Bgp Ipv4 Test" pass="0">Bgp Ipv4 Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

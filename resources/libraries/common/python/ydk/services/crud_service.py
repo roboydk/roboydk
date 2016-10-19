@@ -57,6 +57,28 @@ class YDKCrudService(object):
 
         return provider_dict[protocol] 
 
+    def _close_provider_session(self, node):
+
+        def netconf():
+            """
+            Return the YDK netconf provider 
+            """
+
+            provider =  YDKNetconfProvider()
+            self._session = provider.close_netconf_session(node)
+            return self._session
+
+        def grpc():
+            ##TODO: when grpc gets implemented by YDK as a provider.
+            return None
+
+
+        provider_dict = {'netconf': netconf(),
+                         'grpc': grpc()}
+
+
+        return provider_dict[protocol]
+
     def create(self, entity, node, protocol="netconf", provider_proto='default'):
         """Invoke a crud.create for a given entity on a node using the specified protocol.
 
@@ -70,8 +92,9 @@ class YDKCrudService(object):
         self._crud.create(self._session, entity)
 
         logger.debug('Crud Create Successful')
+        self._close_provider_session(node)
 
-    def read(entity, node, protocol="netconf", provider_proto='default'):
+    def read(self, entity, node, protocol="netconf", provider_proto='default'):
         """Invoke a crud.create for a given entity on a node using the specified protocol.
 
         """
@@ -86,7 +109,7 @@ class YDKCrudService(object):
         logger.debug('Crud Read Successful')
 
 
-    def update(entity, node, protocol="netconf", provider_proto='default'):
+    def update(self, entity, node, protocol="netconf", provider_proto='default'):
         """Invoke a crud.create for a given entity on a node using the specified protocol.
 
         """
@@ -100,7 +123,7 @@ class YDKCrudService(object):
 
         logger.debug('Crud Update Successful')
 
-    def delete(entity, node, protocol="netconf", provider_proto='default'):
+    def delete(self, entity, node, protocol="netconf", provider_proto='default'):
         """Invoke a crud.create for a given entity on a node using the specified protocol.
 
         """

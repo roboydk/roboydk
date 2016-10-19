@@ -15,8 +15,7 @@
 | Variables | resources/libraries/common/python/topology.py
 | Library | resources.libraries.common.python.netmiko_ssh.NetmikoSSH
 
-*** Test Cases ***
-
+*** Keywords ***
 | Exit Config Mode
 | | Exit Config Mode
 | Enable
