@@ -22,16 +22,17 @@ from resources.libraries.common.python.topology import Topology
 from resources.libraries.common.python.os_netmiko_dict import os_netmiko_map
 import pdb
 
+
 class NetmikoSSH(object):
     """Contains methods for managing and using SSH connections for Network Devices using Netmiko"""
 
-    __MAX_RECV_BUF = 10*1024*1024
+    __MAX_RECV_BUF = 10 * 1024 * 1024
     __existing_connections = {}
 
     def __init__(self):
         self._session = None
         self._node = None
-        self._device = {} 
+        self._device = {}
 
     @staticmethod
     def _node_hash(self, node, port):
@@ -46,17 +47,17 @@ class NetmikoSSH(object):
 
         return hash(frozenset([node['mgmt_ip'], port]))
 
-
     @staticmethod
     def _get_device_type(node):
-        device_os = node['os'] 
+        device_os = node['os']
         if str(device_os) in os_netmiko_map.keys():
-          return os_netmiko_map[str(device_os)] 
+            return os_netmiko_map[str(device_os)]
         return None
 
     def net_connect(self, node):
         """Connect to node using Netmiko's inbuilt libraries.
-
+        :param node: The node to disconnect from.
+        :type node: dict
         """
         self._node = node
         ssh_port = Topology.get_ssh_port_from_node(node)
@@ -71,15 +72,13 @@ class NetmikoSSH(object):
                             'ip': node['mgmt_ip'],
                             'username': node['username'],
                             'password': node['password'],
-                            'port': ssh_port }
-
+                            'port': ssh_port}
 
             self._session = ConnectHandler(**self._device)
             NetmikoSSH.__existing_connections[node_hash] = self._session
 
             logger.trace('connect took {} seconds'.format(time() - start))
             logger.debug('new connection: {0}'.format(self._session))
-
 
         logger.debug('Connections: {0}'.format(str(NetmikoSSH.__existing_connections)))
 
@@ -95,7 +94,7 @@ class NetmikoSSH(object):
                          format(node['host'], node['port']))
             ssh = NetmikoSSH.__existing_connections.pop(node_hash)
 
-        self._session.disconnect()    
+        self._session.disconnect()
 
     def _reconnect(self):
         """Close the SSH connection and open it again."""
@@ -140,27 +139,36 @@ class NetmikoSSH(object):
         self._session.find_prompt()
 
     def send_command(self, cmd):
-        """Send command down the SSH channel and return output back"""
+        """Send command down the SSH channel and return output back
+        :param cmd
+        :type cmd: str
+        """
         if cmd is None:
-          raise TypeError('Command parameter is None')
+            raise TypeError('Command parameter is None')
         if len(cmd) == 0:
-          raise ValueError('Empty command parameter')
+            raise ValueError('Empty command parameter')
 
         self.net_connect(self._node)
         return self._session.send_command(cmd)
 
     def send_config_set(self, config_cmds):
-        """Send a set of configuration commands to remote device"""
+        """Send a set of configuration commands to remote device
+        :param config_cmds
+        :type config_cmds: str
+        """
         if config_cmds is None:
-          raise TypeError('Config Cmds parameter is None')
+            raise TypeError('Config Cmds parameter is None')
         self.net_connect(self._node)
         print "Netmiko NODE !!!\n\n"
         print self._node
         return self._session.send_config_set(config_cmds)
 
     def send_config_from_file(self, cfg_file):
-        """Send a set of configuration commands loaded from a file """
+        """Send a set of configuration commands loaded from a file
+        :param cfg_file
+        :type cfg_file: file
+        """
         if not os.path.isfile(cfg_file):
-          raise TypeError('Config file does not exist')
+            raise TypeError('Config file does not exist')
         self.net_connect(self._node)
         self._session.send_config_from_file(cfg_file)
