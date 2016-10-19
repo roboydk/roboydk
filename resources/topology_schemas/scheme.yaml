@@ -1,0 +1,83 @@
+type:    map
+mapping:
+
+  "name":
+    type:      str
+    required:  true
+  "orchestration":
+    type: str
+    enum: ['physical', 'virl', 'vagrant']
+    required: true
+
+#  "nets":
+#    type:    seq
+#    sequence:
+#      - type:    map
+#        mapping:
+#          "name":
+#            type:  str
+#          "vlan":
+#            type:  int
+#          "description":
+#            type: str
+
+  "nodes":
+    type:    seq
+    sequence:
+      - type:    map
+        mapping:
+          "name":
+            type: str
+            required: true
+          "type":
+            type: str
+            enum: ['rtr', 'tgen']
+          "os":
+            type: str
+            required: true
+            enum: ['cisco_ios', 'cisco_iosxe', 'cisco_nxos', 'cisco_iosxr',
+                   'arista_eos', 'junos', 'linux_ubuntu', 'linux_centos']
+          "cpu":
+            type: int
+          "ram":
+            type: int
+
+          "box":
+            type: str
+
+          "mgmt_ip":
+            type: str
+
+          "username":
+            type: str
+          "password":
+            type: str
+          "ports":
+            type:  seq
+            sequence:
+              - type: map
+                mapping:
+                  "type":
+                    type: str
+                  "value":
+                    type: int
+          "hostname":
+            type: str
+          "interfaces":
+            type:  seq
+            sequence:
+              - type: map
+                mapping:
+                  "interface":
+                    type: str
+                  "link-name":
+                    type: str
+                  "mac":
+                    type: str
+                    pattern: "/[0-9a-f]{2}(:[0-9a-f]{2}){5}/"
+                  "ip":
+                    type: str
+                    #pattern: "\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b"
+                    #required: true
+                  "mask":
+                    type: str

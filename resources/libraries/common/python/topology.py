@@ -27,20 +27,22 @@ __all__ = ["DICT__nodes", 'Topology']
 
 
 def _ssh_port_name(node):
-      if "linux" in node['os']:
-          port = "ssh"
-      elif "xr" in node['os']:
-          port = "ssh_xr_shell"
-      return port
+    if "linux" in node['os']:
+        port = "ssh"
+    elif "xr" in node['os']:
+        port = "ssh_xr_shell"
+    return port
+
 
 def _convert_list_to_dict(input_list, key_tag):
     _dict_bucket = {}
     key_cnt = 0
     for list_item in input_list:
         key_cnt = key_cnt + 1
-        _dict_bucket[key_tag+str(key_cnt)] = list_item
-    
+        _dict_bucket[key_tag + str(key_cnt)] = list_item
+
     return _dict_bucket
+
 
 def _load_topo_from_yaml():
     """Load topology from file defined in "${TOPOLOGY_PATH}" variable.
@@ -48,20 +50,21 @@ def _load_topo_from_yaml():
     :return: Nodes from loaded topology.
     """
     topo_path = BuiltIn().get_variable_value("${TOPOLOGY_PATH}")
-    #topo_path = "/home/cisco/roboydk/resources/topologies/3_node_topology_plus_2_tgens.yml"
+    # topo_path = "/Users/mkorshun/IdeaProjects/roboydk_git/resources/topologies/3_node_topology_plus_2_tgens.yml"
     with open(topo_path) as work_file:
-         nodes_list = load(work_file.read())['nodes']
+        nodes_list = load(work_file.read())['nodes']
 
-         node_cnt = 0
-         for node in nodes_list:
+        node_cnt = 0
+        for node in nodes_list:
             port_dict = _convert_list_to_dict(node["ports"], "port")
-            interface_dict = _convert_list_to_dict(node["interfaces"], "interface")  
+            interface_dict = _convert_list_to_dict(node["interfaces"], "interface")
             nodes_list[node_cnt]["ports"] = port_dict
             nodes_list[node_cnt]["interfaces"] = interface_dict
-            node_cnt =  node_cnt + 1 
+            node_cnt = node_cnt + 1
 
-         return _convert_list_to_dict(nodes_list, "node")
-          
+        return _convert_list_to_dict(nodes_list, "node")
+
+
 # pylint: disable=invalid-name
 class NodeType(object):
     """Defines node types used in topology dictionaries."""
@@ -70,7 +73,7 @@ class NodeType(object):
     # Traffic Generator (this node has traffic generator on it)
     TG = 'tgen'
     # Linux (this is a linux node meant for operational tasks)
-    LNX = 'lnx' 
+    LNX = 'lnx'
 
 
 class NodeSubTypeTG(object):
@@ -82,9 +85,11 @@ class NodeSubTypeTG(object):
     # IxNetwork
     IXNET = 'IXNET'
 
+
 DICT__nodes = _load_topo_from_yaml()
 
 print DICT__nodes
+
 
 class Topology(object):
     """Topology data manipulation and extraction methods.
@@ -103,7 +108,6 @@ class Topology(object):
     the methods without having filled active topology with internal nodes data.
     """
 
-
     @staticmethod
     def get_node_by_name(nodes, name):
         """Get node from nodes of the topology by name.
@@ -120,7 +124,6 @@ class Topology(object):
 
         return None
 
-
     @classmethod
     def get_os_from_node_name(cls, nodes, name):
         """Get node network os from nodes of the topology by name.
@@ -133,9 +136,9 @@ class Topology(object):
         """
 
         node_ut = cls.get_node_by_name(nodes, name)
-        
+
         if node_ut is not None:
-          return node_ut['os']
+            return node_ut['os']
         return None
 
     @classmethod
@@ -152,17 +155,16 @@ class Topology(object):
         node_ut = cls.get_node_by_name(nodes, name)
 
         if node_ut is not None:
-          return node_ut['mgmt_ip']
+            return node_ut['mgmt_ip']
         return None
-
 
     @staticmethod
     def _ssh_port_name(node):
-      if "linux" in node['os']:
-          port_type = "ssh"
-      elif "xr" in node['os']:
-          port_type = "ssh_xr"
-      return port_type
+        if "linux" in node['os']:
+            port_type = "ssh"
+        elif "xr" in node['os']:
+            port_type = "ssh_xr"
+        return port_type
 
     @classmethod
     def get_ssh_port_from_node(cls, node):
@@ -174,9 +176,9 @@ class Topology(object):
 
         ssh_port_name = cls._ssh_port_name(node)
         for port in node["ports"].values():
-           if ssh_port_name == port["type"]:
-              ssh_port = port["value"]
-              return ssh_port
+            if ssh_port_name == port["type"]:
+                ssh_port = port["value"]
+                return ssh_port
 
         return None
 
@@ -203,9 +205,9 @@ class Topology(object):
         """
         napalm_port_name = os_napalm_port_map[node['os']]
         for port in node["ports"].values():
-           if napalm_port_name == port["type"]:
-              napalm_port = port["value"]
-              return napalm_port
+            if napalm_port_name == port["type"]:
+                napalm_port = port["value"]
+                return napalm_port
 
         return None
 
@@ -223,7 +225,6 @@ class Topology(object):
 
         return cls.get_napalm_port_from_node(node_ut)
 
-      
     @staticmethod
     def get_links(nodes):
         """Get list of links(networks) in the topology.
@@ -326,7 +327,6 @@ class Topology(object):
             interface_number += 1
         return retval
 
-
     @staticmethod
     def get_adjacent_node_and_interface(nodes_info, node, iface_key):
         """Get node and interface adjacent to specified interface
@@ -366,7 +366,6 @@ class Topology(object):
                 if if_val['link-name'] == link_name:
                     return node_data, if_key
 
-
     @staticmethod
     def get_node_interfaces(node):
         """Get all node interfaces.
@@ -393,7 +392,7 @@ class Topology(object):
         link_names = []
         for interface in interfaces.values():
             if 'link-name' in interface:
-              link_names.append(interface['link'])
+                link_names.append(interface['link'])
         if len(link_names) == 0:
             link_names = None
         return link_names

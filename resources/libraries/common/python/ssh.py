@@ -27,13 +27,14 @@ from resources.libraries.common.python.topology import Topology
 
 __all__ = ["exec_cmd", "exec_cmd_no_error"]
 
+
 # TODO: load priv key
 
 
 class SSH(object):
     """Contains methods for managing and using SSH connections."""
 
-    __MAX_RECV_BUF = 10*1024*1024
+    __MAX_RECV_BUF = 10 * 1024 * 1024
     __existing_connections = {}
 
     def __init__(self):
@@ -55,21 +56,20 @@ class SSH(object):
 
     @staticmethod
     def _ssh_port_name(node):
-      if "linux" in node['os']:
-          port_type = "ssh"
-      elif "xr" in node['os']:
-          port_type = "ssh_xr_shell"
-      return port_type
+        if "linux" in node['os']:
+            port_type = "ssh"
+        elif "xr" in node['os']:
+            port_type = "ssh_xr_shell"
+        return port_type
 
     @staticmethod
     def _get_ssh_port(self, node):
-      ssh_port_name = self._ssh_port_name(node)
-      for port in node["ports"]:
-        if ssh_port_name == node["ports"][port]["type"]:
-          ssh_port = node["ports"][port]["value"]
-          break
-      return ssh_port
- 
+        ssh_port_name = self._ssh_port_name(node)
+        for port in node["ports"]:
+            if ssh_port_name == node["ports"][port]["type"]:
+                ssh_port = node["ports"][port]["value"]
+                break
+        return ssh_port
 
     def connect(self, node):
         """Connect to node prior to running exec_command or scp.
@@ -92,7 +92,6 @@ class SSH(object):
             self._ssh = paramiko.SSHClient()
             self._ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
-            
             self._ssh.connect(node['mgmt_ip'], username=node['username'],
                               password=node.get('password'), pkey=pkey,
                               port=ssh_port)
@@ -170,7 +169,7 @@ class SSH(object):
                     'Timeout exception.\n'
                     'Current contents of stdout buffer: {0}\n'
                     'Current contents of stderr buffer: {1}\n'
-                    .format(stdout.getvalue(), stderr.getvalue())
+                        .format(stdout.getvalue(), stderr.getvalue())
                 )
 
             sleep(0.1)
@@ -184,9 +183,9 @@ class SSH(object):
 
         end = time()
         logger.trace('exec_command on {0} took {1} seconds'.format(
-            self._ssh.get_transport().getpeername(), end-start))
+            self._ssh.get_transport().getpeername(), end - start))
 
-        logger.trace('chan_recv/_stderr took {} seconds'.format(time()-end))
+        logger.trace('chan_recv/_stderr took {} seconds'.format(time() - end))
 
         logger.trace('return RC {}'.format(return_code))
         logger.trace('return STDOUT {}'.format(stdout.getvalue()))
@@ -305,7 +304,7 @@ class SSH(object):
         scp.put(local_path, remote_path)
         scp.close()
         end = time()
-        logger.trace('SCP took {0} seconds'.format(end-start))
+        logger.trace('SCP took {0} seconds'.format(end - start))
 
 
 def exec_cmd(node, cmd, timeout=600, sudo=False):
