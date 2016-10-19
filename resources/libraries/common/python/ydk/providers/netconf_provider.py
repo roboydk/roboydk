@@ -49,7 +49,8 @@ class YDKNetconfProvider(object):
         """
         self._node = node
         netconf_port = Topology.get_netconf_port_from_node(node)
-        node_hash = self._node_hash(self, node, netconf_port)
+        print "netconf port Is !!!"+str(netconf_port)
+        node_hash = self._node_hash(node, netconf_port)
         if node_hash in YDKNetconfProvider.__existing_connections:
             self._session = YDKNetconfProvider.__existing_connections[node_hash]
             logger.debug('reusing netconf session: {0}'.format(self._session))
