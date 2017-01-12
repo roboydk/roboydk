@@ -51,8 +51,8 @@ class YDKNetconfProvider(object):
         netconf_port = Topology.get_netconf_port_from_node(node)
         print "netconf port Is !!!"+str(netconf_port)
         node_hash = self._node_hash(node, netconf_port)
-        if 0:
-#        if node_hash in YDKNetconfProvider.__existing_connections:
+
+        if node_hash in YDKNetconfProvider.__existing_connections:
             self._session = YDKNetconfProvider.__existing_connections[node_hash]
             logger.debug('reusing netconf session: {0}'.format(self._session))
         else:
@@ -79,13 +79,12 @@ class YDKNetconfProvider(object):
         :param node: The node to disconnect from.
         :type node: dict
         """
-#        node_hash = self._node_hash(node, netconf)
-#        if node_hash in YDKNetconfProvider.__existing_connections:
-#            logger.debug('Disconnecting peer: {}, {}'.
-#                         format(node['host'], node['port']))
-#            ssh = YDKNetconfProvider.__existing_connections.pop(node_hash)
+        node_hash = self._node_hash(node, netconf)
+        if node_hash in YDKNetconfProvider.__existing_connections:
+            logger.debug('Disconnecting peer: {}, {}'.
+                         format(node['host'], node['port']))
+            ssh = YDKNetconfProvider.__existing_connections.pop(node_hash)
 
-        
         self._session.close()    
 
     def _reconnect(self):

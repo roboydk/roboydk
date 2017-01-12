@@ -16,7 +16,7 @@
 | Resource | resources/libraries/common/robot/default.robot
 #| Resource | resources/libraries/common/robot/topology.robot
 #| Resource | resources/libraries/common/robot/openconfig_bgp.robot
-| Library | resources.libraries.common.python.ydk.models.openconfig.openconfig_bgp.BGP
+| Library | resources.libraries.common.python.ydk.models.openconfig.BGP
 
 #| Test Setup | Setup All DUTs | ${nodes}
 

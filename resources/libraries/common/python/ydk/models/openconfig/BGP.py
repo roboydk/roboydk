@@ -20,7 +20,7 @@ from robot.api import logger
 from robot.utils.asserts import assert_equal
 from ydk.models.openconfig import bgp as oc_bgp
 from resources.libraries.common.python.ydk.services.crud_service import YDKCrudService
-
+import subprocess
 
 class BGP(object):
     def __init__(self):
@@ -30,6 +30,12 @@ class BGP(object):
         bgp = oc_bgp.Bgp()
         """Add config data to bgp object."""
         # global configuration
+
+        print "*WARN*"+str(node['name'])
+
+        print "*WARN*"+str(loopback)
+        print "*WARN*"+str(neighbor)
+
         bgp.global_.config.as_ = 65001 
         v4_afi_safi = bgp.global_.afi_safis.AfiSafi()
         v4_afi_safi.afi_safi_name = "ipv4-unicast"
@@ -52,14 +58,15 @@ class BGP(object):
 
         # configure IBGP neighbor
         ibgp_nbr = bgp.neighbors.Neighbor()
-        ibgp_nbr.neighbor_address = "2.2.2.2"
-        ibgp_nbr.config.neighbor_address = "2.2.2.2"
+        ibgp_nbr.neighbor_address = str(neighbor) 
+        ibgp_nbr.config.neighbor_address = str(neighbor)
         ibgp_nbr.config.peer_group = "IBGP"
         bgp.neighbors.neighbor.append(ibgp_nbr)
 
         self._crud.create(bgp, node)
-
-
+        
+#        cmd = 'python /root/roboydk/resources/libraries/common/python/ydk/models/openconfig/bgp_setup.py'     
+#        subprocess.call(cmd.split())
 
 #DICT__nodes={'node1': {'box': 'ubuntu/trusty64', 'username': 'vagrant', 'name': 'devbox_s', 'mgmt_ip': '10.30.110.213', 'os': 'linux_ubuntu', 'interfaces': {'interface1': {'interface': 'eth1', 'link-name': 'link1'}}, 'password': 'vagrant', 'type': 'tgen', 'ports': {'port1': {'type': 'ssh', 'value': 2522}}}, 'node3': {'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr1', 'mgmt_ip': '10.30.110.213', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link1'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link5'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link3'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2602}, 'port3': {'type': 'netconf', 'value': 8301}, 'port1': {'type': 'ssh_xr', 'value': 2601}}}, 'node2': {'box': 'ubuntu/trusty64', 'username': 'vagrant', 'name': 'devbox_r', 'mgmt_ip': 'localhost', 'os': 'linux_ubuntu', 'interfaces': {'interface1': {'interface': 'eth1', 'link-name': 'link2'}}, 'password': 'vagrant', 'type': 'tgen', 'ports': {'port1': {'type': 'ssh', 'value': 2523}}}, 'node5': {'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr3', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link5'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2606}, 'port3': {'type': 'netconf', 'value': 8303}, 'port1': {'type': 'ssh_xr', 'value': 2605}}}, 'node4': {'box': 'IOS-XRv', 'username': 'vagrant', 'name': 'rtr2', 'mgmt_ip': 'localhost', 'os': 'cisco_iosxr', 'interfaces': {'interface1': {'interface': 'GigabitEthernet0/0/0/0', 'link-name': 'link3'}, 'interface3': {'interface': 'GigabitEthernet0/0/0/2', 'link-name': 'link4'}, 'interface2': {'interface': 'GigabitEthernet0/0/0/1', 'link-name': 'link2'}}, 'password': 'vagrant', 'type': 'rtr', 'ports': {'port2': {'type': 'ssh_xr_shell', 'value': 2604}, 'port3': {'type': 'netconf', 'value': 8302}, 'port1': {'type': 'ssh_xr', 'value': 2603}}}}
 

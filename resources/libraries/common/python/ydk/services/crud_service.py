@@ -92,7 +92,6 @@ class YDKCrudService(object):
         self._crud.create(self._session, entity)
 
         logger.debug('Crud Create Successful')
-        self._close_provider_session(node)
 
     def read(self, entity, node, protocol="netconf", provider_proto='default'):
         """Invoke a crud.create for a given entity on a node using the specified protocol.

@@ -38,7 +38,7 @@ nodes:
     type: rtr
     os: cisco_iosxr
     box: IOS-XRv-ydk
-    mgmt_ip: 10.30.110.213 
+    mgmt_ip: 11.11.11.59 
     username: vagrant
     password: vagrant
     ports:
