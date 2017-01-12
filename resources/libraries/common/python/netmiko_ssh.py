@@ -35,7 +35,7 @@ class NetmikoSSH(object):
         self._device = {}
 
     @staticmethod
-    def _node_hash(self, node, port):
+    def _node_hash(node, port):
         """Get IP address and port hash from node dictionary.
 
         :param node: Node in topology.
@@ -62,7 +62,7 @@ class NetmikoSSH(object):
         self._node = node
         ssh_port = Topology.get_ssh_port_from_node(node)
 
-        node_hash = self._node_hash(self, node, ssh_port)
+        node_hash = NetmikoSSH._node_hash(node, ssh_port)
         if node_hash in NetmikoSSH.__existing_connections:
             self._session = NetmikoSSH.__existing_connections[node_hash]
             logger.debug('reusing ssh: {0}'.format(self._session))
@@ -88,10 +88,13 @@ class NetmikoSSH(object):
         :param node: The node to disconnect from.
         :type node: dict
         """
-        node_hash = self._node_hash(node)
+        ssh_port = Topology.get_ssh_port_from_node(node)
+
+        node_hash = NetmikoSSH._node_hash(node, ssh_port)
+
         if node_hash in NetmikoSSH.__existing_connections:
             logger.debug('Disconnecting peer: {}, {}'.
-                         format(node['host'], node['port']))
+                         format(node['name'], ssh_port))
             ssh = NetmikoSSH.__existing_connections.pop(node_hash)
 
         self._session.disconnect()

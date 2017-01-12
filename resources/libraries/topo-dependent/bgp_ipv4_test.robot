@@ -18,7 +18,7 @@
 #| Resource | resources/libraries/common/robot/openconfig_bgp.robot
 | Library | resources.libraries.common.python.ydk.models.openconfig.BGP
 
-#| Test Setup | Setup All DUTs | ${nodes}
+| Test Setup | Setup All DUTs | ${nodes}
 
 *** Variables ***
 ${NODE1}  rtr1	

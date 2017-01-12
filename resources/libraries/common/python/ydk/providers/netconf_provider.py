@@ -82,7 +82,7 @@ class YDKNetconfProvider(object):
         node_hash = self._node_hash(node, netconf)
         if node_hash in YDKNetconfProvider.__existing_connections:
             logger.debug('Disconnecting peer: {}, {}'.
-                         format(node['host'], node['port']))
+                         format(node['name'], node['port']))
             ssh = YDKNetconfProvider.__existing_connections.pop(node_hash)
 
         self._session.close()    

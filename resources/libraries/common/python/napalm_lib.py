@@ -37,7 +37,7 @@ class NapalmDriver(object):
         self._session = False
 
     @staticmethod
-    def _node_hash(self, node, port):
+    def _node_hash(node, port):
         """Get IP address and port hash from node dictionary.
 
         :param node: Node in topology.
@@ -64,7 +64,7 @@ class NapalmDriver(object):
         print node
         self._napalm_port = Topology.get_napalm_port_from_node(node)
 
-        node_hash = self._node_hash(self, node, self._napalm_port)
+        node_hash = NapalmDriver._node_hash(node, self._napalm_port)
         if node_hash in NapalmDriver.__existing_connections:
             self._device = NapalmDriver.__existing_connections[node_hash]
             logger.debug('reusing ssh: {0}'.format(self._session))
@@ -102,7 +102,8 @@ class NapalmDriver(object):
         :param node: The node to disconnect from.
         :type node: dict
         """
-        node_hash = self._node_hash(node)
+   
+        node_hash = NapalmDriver._node_hash(node, self._napalm_port)
         if node_hash in NapalmDriver.__existing_connections:
             logger.debug('Removing peer: {}, {}'.
                          format(node['name'], self._napalm_port))
